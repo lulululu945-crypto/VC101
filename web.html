@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <meta name="description" content="?�怡�? (Howard) | AI ? ?��?轉�? ? 網�?策略 ? ?�育科�?顧�??�為企業?�本增�?，實?��??�值數位�??��???>
+    <meta name="keywords" content="?�怡�?, Howard, AI 顧�?, ?��?轉�?, 網�?策略, ?�育科�?, 康�??��?, UX 設�?">
+    <meta name="author" content="Howard Kuo ?�怡�?">
+    <title>Howard Kuo | AI & Digital Transformation Consultant</title>
+
+    <!-- Google Fonts - Inter & Noto Sans TC for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#1E6FB9',
+                            green: '#4CAF7D',
+                            orange: '#FFB347',
+                            purple: '#9B27C3',
+                            lavender: '#9B27C3',
+                            oceanblue: '#26A0DA',
+                            dark: '#0f172a',
+                            light: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></link>
+
+    <style>
+        /* Premium custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Subtle Grid Pattern Overlay */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+        }
+
+        /* Glow lights with glassmorphism */
+        .blur-glow-purple {
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+        }
+        .blur-glow-blue {
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+        }
+        .blur-glow-mint {
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+        }
+
+        /* Hover border glow dynamic effect */
+        .glow-card {
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glow-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            transition: padding 0.5s, background 0.5s;
+        }
+        .glow-card:hover::before {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.6), rgba(124, 58, 237, 0.6));
+        }
+
+        /* Typewriter Cursor */
+        .cursor-blink {
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Float Animations for Premium SaaS elements */
+        @keyframes subtleFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); }
+        }
+        .float-element-slow {
+            animation: subtleFloat 8s ease-in-out infinite;
+        }
+        .float-element-fast {
+            animation: subtleFloat 5s ease-in-out infinite;
+        }
+
+        /* Custom Clip path for sleek timeline */
+        .clip-diagonal {
+            clip-path: polygon(0 0, 100% 4%, 100% 96%, 0 100%);
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-slate-800 antialiased overflow-x-hidden selection:bg-brand-blue/10 selection:text-brand-blue">
+
+    <!-- Interactive Background Canvas & Ambient Gradients -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <canvas id="bg-canvas" class="absolute inset-0 w-full h-full opacity-65"></canvas>
+        <div class="absolute top-[-10%] right-[-10%] w-[50vw] h-[50vw] blur-glow-purple rounded-full z-10"></div>
+        <div class="absolute bottom-[20%] left-[-15%] w-[60vw] h-[60vw] blur-glow-blue rounded-full z-10"></div>
+        <div class="absolute top-[40%] right-[20%] w-[40vw] h-[40vw] blur-glow-mint rounded-full z-10"></div>
+        <div class="absolute inset-0 grid-bg opacity-75 z-0"></div>
+    </div>
+
+    <!-- Page Loading Animation Overlay -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center transition-all duration-700 ease-out">
+        <div class="relative flex flex-col items-center">
+            <div class="w-16 h-16 rounded-full border-t-2 border-brand-blue border-r-2 border-brand-purple animate-spin mb-4"></div>
+            <div class="text-sm font-semibold uppercase tracking-widest text-slate-400">Howard Kuo / AI Digital</div>
+            <div class="text-[10px] text-brand-blue mt-1">Initializing Experience...</div>
+        </div>
+    </div>
+
+    <!-- Header / Premium Glassmorphism Navbar -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Brand Logo with micro-interaction -->
+            <a href="#home" class="group flex items-center gap-2.5">
+                <div class="relative w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-blue to-brand-purple flex items-center justify-center shadow-lg shadow-brand-blue/15 group-hover:scale-105 transition-transform duration-300">
+                    <span class="text-white font-extrabold text-sm tracking-tighter">H</span>
+                    <!-- Decorative inner dot -->
+                    <div class="absolute bottom-1 right-1 w-1.5 h-1.5 bg-brand-green rounded-full animate-ping"></div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-slate-900 font-bold tracking-tight text-base leading-none group-hover:text-brand-blue transition-colors duration-300">?�怡�? <span class="text-xs font-medium text-slate-400">Howard</span></span>
+                    <span class="text-[10px] text-slate-400 tracking-wider mt-0.5 uppercase">AI & DX Strategy</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links - Large Screens -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
+                <a href="#home" class="relative py-2 hover:text-slate-900 transition-colors duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-blue after:transition-all after:duration-300 hover:after:w-full">首�?</a>
+                <a href="#about" class="relative py-2 hover:text-slate-900 transition-colors duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-blue after:transition-all after:duration-300 hover:after:w-full">?�於?�怡�?</a>
+                <a href="#solutions" class="relative py-2 hover:text-slate-900 transition-colors duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-blue after:transition-all after:duration-300 hover:after:w-full">AI �?��?��?</a>
+                <a href="#cases" class="relative py-2 hover:text-slate-900 transition-colors duration-300 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-brand-blue after:transition-all after:duration-300 hover:after:w-full">實戰案�?</a>
+            </nav>
+
+            <!-- Dynamic CTA Button with hover Ready to Connect State -->
+            <div class="hidden md:block">
+                <a href="https://calendar.app.google/oLFytTd5b1tiMGSz6" target="_blank" id="nav-cta" class="group relative px-5 py-2.5 text-xs font-semibold rounded-full border border-slate-200 bg-white/80 hover:bg-white text-slate-800 shadow-sm transition-all duration-300 overflow-hidden flex items-center gap-2">
+                    <span class="relative z-10 transition-all duration-300 group-hover:hidden">?��?諮詢</span>
+                    <span class="relative z-10 hidden group-hover:inline-flex items-center gap-1.5 text-brand-green font-bold animate-pulse">
+                        <span class="w-1.5 h-1.5 bg-brand-green rounded-full inline-block"></span>
+                        Status: Ready to Connect
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-brand-green/5 to-brand-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 rounded-lg text-slate-600 hover:text-slate-900 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-md border-b border-slate-100 px-6 py-6 flex flex-col gap-4 shadow-lg transition-all duration-300">
+            <a href="#home" class="mobile-link text-base font-medium py-2 border-b border-slate-50 text-slate-800">首�?</a>
+            <a href="#about" class="mobile-link text-base font-medium py-2 border-b border-slate-50 text-slate-800">?�於?�怡�?</a>
+            <a href="#solutions" class="mobile-link text-base font-medium py-2 border-b border-slate-50 text-slate-800">AI �?��?��?</a>
+            <a href="#cases" class="mobile-link text-base font-medium py-2 border-b border-slate-50 text-slate-800">實戰案�?</a>
+            <a href="https://calendar.app.google/oLFytTd5b1tiMGSz6" target="_blank" class="mobile-link text-center bg-gradient-to-r from-brand-blue to-brand-purple text-white text-sm font-semibold py-3 rounded-xl shadow-lg shadow-brand-blue/15 mt-2 flex items-center justify-center gap-2">
+                <i data-lucide="calendar" class="w-4 h-4"></i> 立即?��? AI 諮詢
+            </a>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center pt-28 pb-16 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
+                <!-- Hero Left Content -->
+                <div class="lg:col-span-7 flex flex-col justify-center text-left">
+                    <!-- Tech Tag -->
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-blue/5 border border-brand-blue/10 w-fit mb-6 animate-fade-in">
+                        <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                        <span class="text-xs font-medium text-brand-blue uppercase tracking-widest">AI & Digital Strategy Transformation</span>
+                    </div>
+
+                    <!-- Typewriter Title -->
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.15] mb-6">
+                        <span id="typewriter-text" class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue via-brand-purple to-slate-900"></span><span class="cursor-blink text-brand-purple font-light">|</span>
+                    </h1>
+
+                    <!-- Paragraph description -->
+                    <p class="text-lg text-slate-600 font-normal leading-relaxed max-w-xl mb-10">
+                        Howard helps businesses transform knowledge, workflows, and customer experience through practical AI Marketing solutions. ?�抱?��??�能?�創?�架構�??��??�注?��?越周?��??��?驅�??��?                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                        <a href="https://calendar.app.google/oLFytTd5b1tiMGSz6" target="_blank" id="hero-primary-cta" class="group relative px-8 py-4 rounded-full bg-gradient-to-r from-slate-900 to-slate-800 text-white font-semibold text-sm shadow-xl shadow-slate-900/10 hover:shadow-brand-green/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden text-center flex items-center justify-center gap-2">
+                            <span class="relative z-10 group-hover:hidden flex items-center gap-2">
+                                立即?��? AI 諮詢 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </span>
+                            <span class="relative z-10 hidden group-hover:inline-flex items-center gap-1.5 text-brand-green font-bold">
+                                <span class="w-2.5 h-2.5 bg-brand-green rounded-full inline-block animate-ping"></span>
+                                Status: Ready to Connect
+                            </span>
+                        </a>
+                        <a href="#about" class="px-8 py-4 rounded-full border border-slate-200/80 bg-white/40 hover:bg-white/80 backdrop-blur-sm text-slate-700 font-semibold text-sm text-center transition-all duration-300 hover:border-slate-300">
+                            了解?��?顧�??��?                        </a>
+                    </div>
+
+                    <!-- Premium Trust Indicators -->
+                    <div class="mt-12 pt-8 border-t border-slate-100 flex flex-wrap gap-x-8 gap-y-4 text-xs font-medium text-slate-400">
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-brand-green"></i> 25年數位內容�???                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-brand-green"></i> UX & ?��??��?大師
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-brand-green"></i> 跨�??��??�整?�顧??                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Interactive Mockup (SaaS Dashboard UI) -->
+                <div class="lg:col-span-5 relative w-full flex items-center justify-center">
+                    <div class="relative w-full max-w-lg aspect-square lg:aspect-auto lg:h-[520px] rounded-3xl glow-card backdrop-blur-md bg-white/50 border border-slate-100/80 shadow-2xl p-6 overflow-hidden flex flex-col gap-6 float-element-slow">
+                        <!-- Header of the mock app -->
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-400"></span>
+                                <span class="text-xs font-semibold text-slate-400 ml-2">howard-ai-engine.io</span>
+                            </div>
+                            <span class="text-[10px] px-2.5 py-1 bg-brand-blue/5 text-brand-blue font-bold rounded-full">ACTIVE NODE</span>
+                        </div>
+
+                        <!-- Core Analytics Grid -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Metric Card 1 -->
+                            <div class="bg-white/80 border border-slate-100 p-4 rounded-2xl flex flex-col gap-1 shadow-sm">
+                                <span class="text-[11px] text-slate-400 font-semibold tracking-wider uppercase">Marketing ROI</span>
+                                <span class="text-2xl font-extrabold text-slate-800 tracking-tight">+324.5%</span>
+                                <div class="flex items-center gap-1 text-[10px] text-brand-green font-bold mt-1">
+                                    <i data-lucide="trending-up" class="w-3 h-3"></i> AI Optimization
+                                </div>
+                            </div>
+                            <!-- Metric Card 2 -->
+                            <div class="bg-white/80 border border-slate-100 p-4 rounded-2xl flex flex-col gap-1 shadow-sm">
+                                <span class="text-[11px] text-slate-400 font-semibold tracking-wider uppercase">Workflow Speed</span>
+                                <span class="text-2xl font-extrabold text-slate-800 tracking-tight">18x Faster</span>
+                                <div class="flex items-center gap-1 text-[10px] text-brand-purple font-bold mt-1">
+                                    <i data-lucide="zap" class="w-3 h-3"></i> Agentic Automations
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graph Mockup -->
+                        <div class="flex-1 bg-white/80 border border-slate-100 rounded-2xl p-4 flex flex-col gap-3 shadow-sm relative overflow-hidden">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-700">Digital Value Acceleration Curve</span>
+                                <span class="text-[10px] text-slate-400">Real-time projection</span>
+                            </div>
+                            <!-- SVG Animated Curve -->
+                            <div class="flex-1 w-full relative min-h-[120px] flex items-end">
+                                <svg class="w-full h-full absolute inset-0" viewBox="0 0 300 120" preserveAspectRatio="none">
+                                    <defs>
+                                        <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#1E6FB9" stop-opacity="0.2"/>
+                                            <stop offset="100%" stop-color="#1E6FB9" stop-opacity="0"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Area Path -->
+                                    <path d="M 0 120 Q 50 110 100 85 T 200 45 T 300 15 L 300 120 Z" fill="url(#chart-grad)"></path>
+                                    <!-- Line Path -->
+                                    <path d="M 0 120 Q 50 110 100 85 T 200 45 T 300 15" fill="none" stroke="url(#line-grad)" stroke-width="3" stroke-linecap="round"></path>
+                                    <linearGradient id="line-grad" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="#1E6FB9"></stop>
+                                        <stop offset="50%" stop-color="#9B27C3"></stop>
+                                        <stop offset="100%" stop-color="#4CAF7D"></stop>
+                                    </linearGradient>
+                                </svg>
+                                <!-- Interactive Pulse point -->
+                                <div class="absolute right-[5px] top-[10px] w-3.5 h-3.5 bg-brand-green rounded-full flex items-center justify-center shadow-lg shadow-brand-green/50 animate-bounce">
+                                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mini Float element inside Mockup -->
+                        <div class="absolute bottom-4 left-4 right-4 bg-slate-900 text-white rounded-xl p-3.5 flex items-center justify-between shadow-xl shadow-slate-950/20 float-element-fast">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                                    <i data-lucide="sparkles" class="w-4 h-4 text-brand-green"></i>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold">AI Workflow Integration Active</span>
+                                    <span class="text-[10px] text-slate-400">Optimization completed</span>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section (?�於?�怡�?) -->
+        <section id="about" class="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                <!-- Left side narrative description (High-End Consultant Presentation) -->
+                <div class="lg:col-span-5 lg:sticky lg:top-28">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-6 h-[1px] bg-brand-blue"></span>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-brand-blue">BRAND ARCHITECT</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-6">
+                        ?�怡�? �?康�??��?事業<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-purple">?��?事業??專�?�?/span>
+                    </h2>
+                    
+                    <div class="prose prose-slate max-w-none text-slate-600 space-y-6 leading-relaxed">
+                        <p class="font-medium text-slate-800 text-lg">
+                            深耕數位內容產業�? 25 年�??�怡�? (Howard) ?��??�數位�??�、產?�架構、AI 實戰?�地?��??��??�?�於一身�?資深策略專家??                        </p>
+                        <p>
+                            ?�瞬?�萬變�??��?轉�?大潮中�?Howard 專注?��??�傳統業?��??��??��?尖端 AI 行銷?��??��??��?學�??��?業建置�??�、可規模?��?�?��?��???                        </p>
+                        <p>
+                            ?�數位�?不是?��?工具，而是?��?深刻??UX ?��??��??�思維，�?塑價?��??��??��??�」致?�於?��??��??�?�實體�??��?建�??��??��??�戶體�??�長?��?業價?��??�端?��??��?系�?                        </p>
+                    </div>
+
+                    <!-- Highlighted expertise tags -->
+                    <div class="mt-8 flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-50 border border-slate-100 text-slate-600 hover:border-brand-blue/30 transition-colors">AI行銷資�?科學</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-50 border border-slate-100 text-slate-600 hover:border-brand-blue/30 transition-colors">跨�??�數位�???/span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-50 border border-slate-100 text-slate-600 hover:border-brand-blue/30 transition-colors">?��? UX 網�??��?</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-50 border border-slate-100 text-slate-600 hover:border-brand-blue/30 transition-colors">?�育科�?(EdTech)實戰</span>
+                        <span class="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-50 border border-slate-100 text-slate-600 hover:border-brand-blue/30 transition-colors">高產?��?案管??/span>
+                    </div>
+                </div>
+
+                <!-- Right side professional Metrics & Experience Timeline -->
+                <div class="lg:col-span-7 flex flex-col gap-12">
+                    <!-- Professional Headshot -->
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-purple to-brand-green rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <div class="relative bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 overflow-hidden shadow-lg p-1">
+                            <img src="./mywork/鍾皓軒-headshot-01.jpg" alt="鍾皓軒 Howard Kuo" class="w-full h-auto rounded-3xl object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent p-6 rounded-b-3xl text-white">
+                            <p class="font-semibold text-sm">鍾皓軒 (Howard Kuo)</p>
+                            <p class="text-xs text-slate-300">AI × 數位轉型策略顧問</p>
+                        </div>
+                    </div>
+
+                    <!-- Premium Stat Grid -->
+                    <div class="grid grid-cols-2 gap-6">
+                        <!-- Stat Item 1 -->
+                        <div class="bg-white/60 backdrop-blur-md border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col gap-2 hover:shadow-xl hover:shadow-slate-100/50 transition-all duration-300">
+                            <div class="w-10 h-10 rounded-xl bg-brand-blue/5 flex items-center justify-center mb-2">
+                                <i data-lucide="award" class="w-5 h-5 text-brand-blue"></i>
+                            </div>
+                            <span class="text-3xl font-extrabold tracking-tight text-slate-900">25+ �?/span>
+                            <span class="text-xs text-slate-400 font-semibold tracking-wider uppercase">?��??�容?�網站�??��?�?/span>
+                        </div>
+                        <!-- Stat Item 2 -->
+                        <div class="bg-white/60 backdrop-blur-md border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col gap-2 hover:shadow-xl hover:shadow-slate-100/50 transition-all duration-300">
+                            <div class="w-10 h-10 rounded-xl bg-brand-purple/5 flex items-center justify-center mb-2">
+                                <i data-lucide="rocket" class="w-5 h-5 text-brand-purple"></i>
+                            </div>
+                            <span class="text-3xl font-extrabold tracking-tight text-slate-900">100%</span>
+                            <span class="text-xs text-slate-400 font-semibold tracking-wider uppercase">?�育科�??��?轉�??�地??/span>
+                        </div>
+                        <!-- Stat Item 3 -->
+                        <div class="bg-white/60 backdrop-blur-md border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col gap-2 hover:shadow-xl hover:shadow-slate-100/50 transition-all duration-300">
+                            <div class="w-10 h-10 rounded-xl bg-brand-green/5 flex items-center justify-center mb-2">
+                                <i data-lucide="users" class="w-5 h-5 text-brand-green"></i>
+                            </div>
+                            <span class="text-3xl font-extrabold tracking-tight text-slate-900">10M+</span>
+                            <span class="text-xs text-slate-400 font-semibold tracking-wider uppercase">?��?觸�??��??��?端用??/span>
+                        </div>
+                        <!-- Stat Item 4 -->
+                        <div class="bg-white/60 backdrop-blur-md border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col gap-2 hover:shadow-xl hover:shadow-slate-100/50 transition-all duration-300">
+                            <div class="w-10 h-10 rounded-xl bg-slate-950/5 flex items-center justify-center mb-2">
+                                <i data-lucide="target" class="w-5 h-5 text-slate-900"></i>
+                            </div>
+                            <span class="text-3xl font-extrabold tracking-tight text-slate-900">30%??/span>
+                            <span class="text-xs text-slate-400 font-semibold tracking-wider uppercase">平�?行銷科�??�本增�??��?</span>
+                        </div>
+                    </div>
+
+                    <!-- Chronicle Timeline (?��?�? -->
+                    <div class="flex flex-col gap-8 bg-white/30 backdrop-blur-md border border-slate-100 rounded-3xl p-8 relative">
+                        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                            <i data-lucide="milestone" class="w-5 h-5 text-brand-blue"></i> 轉�?歷�?軌跡
+                        </h3>
+
+                        <!-- Interactive Timeline Track -->
+                        <div class="relative pl-8 border-l border-slate-100 flex flex-col gap-10">
+                            <!-- Timeline Event 1 -->
+                            <div class="relative group">
+                                <!-- Bullet Node -->
+                                <div class="absolute left-[-37.5px] top-1 w-4.5 h-4.5 rounded-full border-4 border-white bg-brand-blue shadow group-hover:scale-125 group-hover:bg-brand-green transition-all duration-300"></div>
+                                <span class="text-[11px] font-bold text-brand-blue tracking-widest uppercase">?�在 �?AI Marketing Integration</span>
+                                <h4 class="text-base font-bold text-slate-900 mt-1">康�??��?事業 ?��?事業??專�?�?/h4>
+                                <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+                                    負責?�育科�??�核心數位產?��?行銷流�??��??��??��???AI 工具流�?行銷資�?科學，�??�部?�?��?下游流�??�本增�?，實?�自?��??��???                                </p>
+                            </div>
+
+                            <!-- Timeline Event 2 -->
+                            <div class="relative group">
+                                <!-- Bullet Node -->
+                                <div class="absolute left-[-37.5px] top-1 w-4.5 h-4.5 rounded-full border-4 border-white bg-slate-300 shadow group-hover:scale-125 group-hover:bg-brand-purple transition-all duration-300"></div>
+                                <span class="text-[11px] font-bold text-slate-400 tracking-widest uppercase">深耕數�?�?UX & Strategy Pioneer</span>
+                                <h4 class="text-base font-bold text-slate-900 mt-1">?�育科�??�數位內容整?��?�?/h4>
+                                <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+                                    主�?多個大?��??�網站平?��??��?規�???UX 使用?��?驗設計。�?責制定�?層�??��?位�??��??��??�架構�??��??��??�數?��?之數位�?轉�???                                </p>
+                            </div>
+
+                            <!-- Timeline Event 3 -->
+                            <div class="relative group">
+                                <!-- Bullet Node -->
+                                <div class="absolute left-[-37.5px] top-1 w-4.5 h-4.5 rounded-full border-4 border-white bg-slate-200 shadow group-hover:scale-125 group-hover:bg-brand-blue transition-all duration-300"></div>
+                                <span class="text-[11px] font-bold text-slate-400 tracking-widest uppercase">跨�??��? �?Digital Platform Architecture</span>
+                                <h4 class="text-base font-bold text-slate-900 mt-1">多�?體內容�??��??�值�??��?</h4>
+                                <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+                                    橫跨?��??��??�平?�架構�?跨�?織�??�管?�。透�?高�??��?專�?管�??�數?�優?��?段�?將傳統�?源無縫�??�為高�??�度?��??��?資產??                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Solutions Section (高端 SaaS ?��?展示) -->
+        <section id="solutions" class="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative">
+            <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-purple/5 border border-brand-purple/10 w-fit mb-4">
+                    <span class="w-2 h-2 rounded-full bg-brand-purple"></span>
+                    <span class="text-xs font-semibold text-brand-purple uppercase tracking-widest">SaaS SOLUTIONS</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    引�??��?潮頭?�六大核心解決方�?                </h2>
+                <p class="text-slate-500 text-base md:text-lg font-normal mt-4">
+                    ?��??�沿人工?�慧?�深??UX 設�??��?，�??��?要�??��?業�??�育機�??��??��?模�??�以?��??��??��?轉�?賦能?��???                </p>
+            </div>
+
+            <!-- Solutions Grid (Mouse interactive spotlight cards) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Solution Card 1 -->
+                <div class="solution-card glow-card bg-white/60 backdrop-blur-md rounded-3xl p-8 shadow-sm flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-blue to-cyan-500 flex items-center justify-center text-white mb-6 shadow-md shadow-brand-blue/10">
+                        <i data-lucide="compass" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">網�?策略規�?</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-1">
+                        ?�您?��??��?身�??��?層網站架構、�?術選?��??�、SEO ?�容?��?，確保網站�?線即?��??�高水平�??��??�值�?高�??��??�能??                    </p>
+                    <div class="mt-6 pt-6 border-t border-slate-50 flex items-center gap-2 text-xs font-bold text-brand-blue">
+                        ?��??��?策略 <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Solution Card 2 -->
+                <div class="solution-card glow-card bg-white/60 backdrop-blur-md rounded-3xl p-8 shadow-sm flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-purple to-pink-500 flex items-center justify-center text-white mb-6 shadow-md shadow-brand-purple/10">
+                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">AI ?��?轉�?</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-1">
+                        ?�於 Agentic 工�?流、LangChain?�ChatGPT ?��?，為?�統業�?導入行銷資�?科學?��?程自?��?，大幅度實現業�??�本增�?，�?塑�??��??��?                    </p>
+                    <div class="mt-6 pt-6 border-t border-slate-50 flex items-center gap-2 text-xs font-bold text-brand-purple">
+                        了解 AI ?�署規�? <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Solution Card 3 -->
+                <div class="solution-card glow-card bg-white/60 backdrop-blur-md rounded-3xl p-8 shadow-sm flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-green to-teal-500 flex items-center justify-center text-white mb-6 shadow-md shadow-brand-green/10">
+                        <i data-lucide="palette" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">UX 使用?��?驗設�?/h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-1">
+                        ?��? Apple 水平極簡?�Stripe 水平流暢?��??��?驗。進�?深入之使?�者�??��??�、�?訊架構�?確�?每個接觸�??�直覺�??��??��?黏�???                    </p>
+                    <div class="mt-6 pt-6 border-t border-slate-50 flex items-center gap-2 text-xs font-bold text-brand-green">
+                        ?�索體�??�學 <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Solution Card 4 -->
+                <div class="solution-card glow-card bg-white/60 backdrop-blur-md rounded-3xl p-8 shadow-sm flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-white mb-6 shadow-md shadow-amber-500/10">
+                        <i data-lucide="layers" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">?��??�容?��?</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-1">
+                        結�? 25 年�??�出?��?多�?體產業�?驗�??�造�?浸�??�自?��??�現�???�育科�??�知識庫平台，�?龐�??��?流暢?��?變為?��??��??�容??                    </p>
+                    <div class="mt-6 pt-6 border-t border-slate-50 flex items-center gap-2 text-xs font-bold text-amber-500">
+                        ?��??�容策略 <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Solution Card 5 -->
+                <div class="solution-card glow-card bg-white/60 backdrop-blur-md rounded-3xl p-8 shadow-sm flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-rose-500 to-purple-600 flex items-center justify-center text-white mb-6 shadow-md shadow-rose-500/10">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">專�?管�??��?程優??/h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-1">
+                        ?�用 Agile/Scrum 等現�??跨�??��?管�??��?，�??�本混�??�傳統�?程�??�為精�??�控?�數位管線�?Pipeline）�?大�?縮短專�?迭代?��???                    </p>
+                    <div class="mt-6 pt-6 border-t border-slate-50 flex items-center gap-2 text-xs font-bold text-rose-500">
+                        了解?�捷?��? <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+
+                <!-- Solution Card 6 -->
+                <div class="solution-card glow-card bg-white/60 backdrop-blur-md rounded-3xl p-8 shadow-sm flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-blue to-indigo-600 flex items-center justify-center text-white mb-6 shadow-md shadow-brand-blue/10">
+                        <i data-lucide="server" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">?��??��?平台建置</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed flex-1">
+                        端到端建構具?��?度�??�性、�?高併?�、�??�顧設�??�味?��?業�?網�? SaaS 系統?��?度響?��??��??��?精�?高度契�?之�?端平?��?                    </p>
+                    <div class="mt-6 pt-6 border-t border-slate-50 flex items-center gap-2 text-xs font-bold text-brand-blue">
+                        評估平台?��? <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Studies Section (實戰案�?) -->
+        <section id="cases" class="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="w-6 h-[1px] bg-brand-green"></span>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-brand-green">SHOWCASE PORTFOLIO</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+                        ?��?轉�??��?越實踐�?�?                    </h2>
+                </div>
+                <p class="text-slate-500 text-sm md:text-base max-w-md font-normal">
+                    ?��??�是案�?，而是將深度�?驗、精湛�?術架構�??��?績�?完�?契�??��??��?程�???                </p>
+            </div>
+
+            <!-- Case Cards Container -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <!-- Case Study 1 -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
+                    <!-- Fake Card Image/Graphic container with visual parallax hover -->
+                    <div class="relative w-full h-[260px] md:h-[320px] overflow-hidden bg-gradient-to-tr from-brand-blue/5 to-brand-purple/5 border-b border-slate-100 flex items-center justify-center p-8">
+                        <div class="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                            <span class="px-5 py-2.5 bg-white text-slate-900 text-xs font-bold uppercase rounded-full shadow-lg flex items-center gap-1.5 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i> View Case
+                            </span>
+                        </div>
+                        
+                        <!-- Visual representation: elegant SaaS cards overlapping (Framer-motion aesthetic) -->
+                        <div class="relative w-full max-w-md h-full flex items-center justify-center">
+                            <!-- Base block -->
+                            <div class="absolute w-[240px] h-[160px] bg-white rounded-2xl shadow-xl border border-slate-100 p-4 transition-transform duration-500 group-hover:-rotate-3 group-hover:-translate-x-4">
+                                <span class="text-[9px] text-slate-400 font-bold uppercase">EdTech SaaS v2.0</span>
+                                <div class="h-2 w-1/2 bg-slate-100 rounded mt-2"></div>
+                                <div class="h-1.5 w-3/4 bg-slate-50 rounded mt-2"></div>
+                                <div class="mt-4 flex gap-1">
+                                    <div class="h-4 w-4 rounded-full bg-brand-blue/10"></div>
+                                    <div class="h-4 w-4 rounded-full bg-brand-purple/10"></div>
+                                </div>
+                            </div>
+                            <!-- Float overlay card -->
+                            <div class="absolute w-[200px] h-[140px] bg-white rounded-2xl shadow-2xl border border-slate-100 p-4 transform translate-x-12 translate-y-6 transition-transform duration-500 group-hover:rotate-6 group-hover:translate-x-16 group-hover:translate-y-8">
+                                <span class="text-[9px] text-brand-green font-bold uppercase">AI AGENT ACTIVE</span>
+                                <div class="h-4 w-2/3 bg-brand-green/5 rounded mt-2 flex items-center px-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-brand-green animate-ping mr-1"></span>
+                                    <span class="text-[8px] text-brand-green font-bold">Optimizing SEO</span>
+                                </div>
+                                <div class="h-2 w-full bg-slate-100 rounded mt-4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case Details -->
+                    <div class="p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-brand-blue/5 text-brand-blue tracking-wide uppercase">AI Marketing Automation</span>
+                                <span class="text-xs text-slate-400 font-medium">?�育?��?轉�?</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 group-hover:text-brand-blue transition-colors duration-300">
+                                康�? EdTech ?��?官網?��?媒�??�容?��?規�?
+                            </h3>
+                            <p class="text-sm text-slate-500 mt-3 leading-relaxed">
+                                ?�破?�統?��??��??��??�制，主導�??�全?�數位學習大?�。透�? AI 行銷?��??�術精準�??��?學現?��?求�??��??��?轉�??��???                            </p>
+                        </div>
+
+                        <!-- Highlights and Metrics -->
+                        <div class="mt-8 pt-6 border-t border-slate-100 grid grid-cols-3 gap-4">
+                            <div>
+                                <span class="block text-[10px] text-slate-400 font-bold uppercase">流�??�??/span>
+                                <span class="text-xl font-extrabold text-slate-900 mt-1">+148%</span>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] text-slate-400 font-bold uppercase">?�容?�產?�能</span>
+                                <span class="text-xl font-extrabold text-slate-900 mt-1">10x ?��?/span>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] text-slate-400 font-bold uppercase">使用?�滿?�度</span>
+                                <span class="text-xl font-extrabold text-slate-900 mt-1">98.2%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 2 -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
+                    <!-- Fake Card Image/Graphic container with visual parallax hover -->
+                    <div class="relative w-full h-[260px] md:h-[320px] overflow-hidden bg-gradient-to-tr from-brand-green/5 to-cyan-50/5 border-b border-slate-100 flex items-center justify-center p-8">
+                        <div class="absolute inset-0 bg-slate-950/20 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                            <span class="px-5 py-2.5 bg-white text-slate-900 text-xs font-bold uppercase rounded-full shadow-lg flex items-center gap-1.5 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i> View Case
+                            </span>
+                        </div>
+
+                        <!-- Visual representation: Stripe/Vercel styling charts dashboard -->
+                        <div class="relative w-full max-w-md h-full flex items-center justify-center">
+                            <!-- Main analytic chart block -->
+                            <div class="relative w-[280px] h-[180px] bg-white rounded-2xl shadow-xl border border-slate-100 p-5 flex flex-col gap-4 transition-transform duration-500 group-hover:scale-105 group-hover:rotate-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] text-slate-400 font-bold uppercase">Brand Conversion Funnel</span>
+                                    <span class="text-[10px] text-brand-green font-bold px-2 py-0.5 rounded bg-brand-green/10">+45.2%</span>
+                                </div>
+                                <!-- Micro lines representing steps -->
+                                <div class="flex flex-col gap-2 mt-2">
+                                    <div class="h-4 w-full bg-slate-50 rounded flex items-center px-2">
+                                        <div class="h-1.5 w-4/5 bg-brand-blue rounded"></div>
+                                    </div>
+                                    <div class="h-4 w-full bg-slate-50 rounded flex items-center px-2">
+                                        <div class="h-1.5 w-3/5 bg-brand-purple rounded"></div>
+                                    </div>
+                                    <div class="h-4 w-full bg-slate-50 rounded flex items-center px-2">
+                                        <div class="h-1.5 w-[42%] bg-brand-green rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case Details -->
+                    <div class="p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-brand-purple/5 text-brand-purple tracking-wide uppercase">UX Architecture & SEO</span>
+                                <span class="text-xs text-slate-400 font-medium">企業?��??��?</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 group-hover:text-brand-blue transition-colors duration-300">
+                                ?��? SaaS ?��??��??��?學決策平?�建�?                            </h3>
+                            <p class="text-sm text-slate-500 mt-3 leading-relaxed">
+                                ?��?業客?�搭建�?體�? AI ?��??��?室。�??�全系統 UX ?�架構�?系�?引�??�統行銷?��?從直覺決策全?��?渡至?�捷?��??��??��?學決策模式�?                            </p>
+                        </div>
+
+                        <!-- Highlights and Metrics -->
+                        <div class="mt-8 pt-6 border-t border-slate-100 grid grid-cols-3 gap-4">
+                            <div>
+                                <span class="block text-[10px] text-slate-400 font-bold uppercase">ROI ?�長比�?</span>
+                                <span class="text-xl font-extrabold text-slate-900 mt-1">+230%</span>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] text-slate-400 font-bold uppercase">跳出?�優??/span>
+                                <span class="text-xl font-extrabold text-slate-900 mt-1">-35%</span>
+                            </div>
+                            <div>
+                                <span class="block text-[10px] text-slate-400 font-bold uppercase">?��?工�?�?/span>
+                                <span class="text-xl font-extrabold text-slate-900 mt-1">20+ 系統</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Background Gallery Section -->
+        <section class="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative">
+            <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-purple/5 border border-brand-purple/10 w-fit mb-4">
+                    <span class="w-2 h-2 rounded-full bg-brand-purple"></span>
+                    <span class="text-xs font-semibold text-brand-purple uppercase tracking-widest">EXPERIENCE & BACKGROUND</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    實戰經驗與背景故事
+                </h2>
+                <p class="text-slate-500 text-base md:text-lg font-normal mt-4">
+                    在全球頂尖企業與研究機構的講授與專案實踐中，累積深厚的數位轉型與教育科技經驗。
+                </p>
+            </div>
+
+            <!-- Experience Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Experience Card 1 - IC Design -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-[380px]">
+                    <div class="relative w-full h-full overflow-hidden bg-gradient-to-br from-brand-blue/10 to-brand-green/10">
+                        <img src="./mywork/台灣 Top3 IC設計-expo-stage-02.jpg" alt="台灣 Top3 IC設計 - 展覽現場" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 flex flex-col items-end justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <h3 class="text-xl font-bold text-white text-right mb-2">台灣 Top3 IC設計企業</h3>
+                            <p class="text-sm text-slate-200 text-right">數位行銷策略論壇 & 展覽現場</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card 2 - Telecom Training -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-[380px]">
+                    <div class="relative w-full h-full overflow-hidden bg-gradient-to-br from-brand-purple/10 to-brand-orange/10">
+                        <img src="./mywork/台灣 Top3 電信業-training-classroom-01.png" alt="台灣 Top3 電信業 - 企業培訓" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 flex flex-col items-end justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <h3 class="text-xl font-bold text-white text-right mb-2">台灣 Top3 電信業者</h3>
+                            <p class="text-sm text-slate-200 text-right">AI 行銷與數位轉型培訓課程</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card 3 - Industrial Tech -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-[380px]">
+                    <div class="relative w-full h-full overflow-hidden bg-gradient-to-br from-brand-green/10 to-brand-blue/10">
+                        <img src="./mywork/工研院-training-classroom-02.png" alt="工研院 - 企業培訓課程" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 flex flex-col items-end justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <h3 class="text-xl font-bold text-white text-right mb-2">工業技術研究院</h3>
+                            <p class="text-sm text-slate-200 text-right">新興科技與策略創新講座</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card 4 - Institute for Information Industry -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col h-[380px] lg:col-start-2">
+                    <div class="relative w-full h-full overflow-hidden bg-gradient-to-br from-brand-orange/10 to-brand-purple/10">
+                        <img src="./mywork/資策會-training-classroom-03.png" alt="資策會 - 數位領導力培訓" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 flex flex-col items-end justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <h3 class="text-xl font-bold text-white text-right mb-2">資訊工業策進會</h3>
+                            <p class="text-sm text-slate-200 text-right">數位領導力與 AI 應用培訓</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Products & Tech Solutions Section -->
+        <section class="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative">
+            <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-green/5 border border-brand-green/10 w-fit mb-4">
+                    <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+                    <span class="text-xs font-semibold text-brand-green uppercase tracking-widest">CORE PRODUCTS</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    ?��??��??��?術解決方�?                </h2>
+                <p class="text-slate-500 text-base md:text-lg font-normal mt-4">
+                    ?��??�??AI ?�術�??��?科學，�??��??�能?�學習、自?��??��??�解決方案�?                </p>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product 1: Vibe Coding -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                    <div class="relative w-full h-[180px] overflow-hidden bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 border-b border-slate-100 flex items-center justify-center p-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-500 to-cyan-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-graduation-cap text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-brand-blue transition-colors duration-300">
+                                Vibe Coding
+                            </h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">
+                                行銷?��??��?學�??�。�??�並跟�??�們�??�走?��??�數?��??��? vibe coding ?��??��?世�???                            </p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-slate-100">
+                            <a href="https://courses.taiwanmds.com/product/information?p=02c0c7b9ec7b11f0b3480242ac110002" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-brand-blue hover:text-brand-purple transition-colors duration-300">
+                                立即訂閱課�? <i class="fas fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Insurance Robot -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                    <div class="relative w-full h-[180px] overflow-hidden bg-gradient-to-tr from-purple-500/10 to-pink-500/10 border-b border-slate-100 flex items-center justify-center p-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-robot text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-brand-blue transition-colors duration-300">
+                                保險機器�?AI
+                            </h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">
+                                ?��?驗�??��?點�?讓�?位�??��?業者�??��?位�?法�?科�?夥伴?��?經�??��?條到�?��說�?一?�俱?��?                            </p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-slate-100">
+                            <a href="https://judgai.com/" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-brand-blue hover:text-brand-purple transition-colors duration-300">
+                                了解?��? <i class="fas fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: SayMind -->
+                <div class="group relative bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                    <div class="relative w-full h-[180px] overflow-hidden bg-gradient-to-tr from-green-500/10 to-teal-500/10 border-b border-slate-100 flex items-center justify-center p-6">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-green-500 to-teal-500 flex items-center justify-center text-white shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-microphone text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-brand-blue transition-colors duration-300">
+                                SayMind
+                            </h3>
+                            <p class="text-sm text-slate-500 leading-relaxed">
+                                一站�?語音轉�??�AI 筆�??��??�自?�口條�?練。使??LangChain ?�建??RAG 系統，可上傳 PDF 並進�?精�??��???                            </p>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-slate-100">
+                            <a href="https://judgai.com/saymind" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-brand-blue hover:text-brand-purple transition-colors duration-300">
+                                試用平台 <i class="fas fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Community & Dependencies Section -->
+        <section class="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative">
+            <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-blue/5 border border-brand-blue/10 w-fit mb-4">
+                    <span class="w-2 h-2 rounded-full bg-brand-blue animate-pulse"></span>
+                    <span class="text-xs font-semibold text-brand-blue uppercase tracking-widest">CONNECT WITH ME</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                    多�?社群???
+                </h2>
+                <p class="text-slate-500 text-base md:text-lg font-normal mt-4">
+                    ?��??�大社群平台?��?保�???��，探�?AI ?��?轉�??��??��?見�?實�?經�???                </p>
+            </div>
+
+            <!-- Social Icons Grid (Dependencies Style) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24 max-w-2xl mx-auto">
+                <!-- LINE -->
+                <a href="https://line.me/ti/p/~howardkuo" target="_blank" class="group flex flex-col items-center justify-center gap-4 p-6 bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-green-400 to-emerald-500 flex items-center justify-center text-white shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-line text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-bold text-slate-900 text-center">LINE</span>
+                    <span class="text-[10px] text-slate-400 text-center">?��?溝�?/span>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/yiju.kuo/" target="_blank" class="group flex flex-col items-center justify-center gap-4 p-6 bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-blue-600/20 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-facebook-f text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-bold text-slate-900 text-center">Facebook</span>
+                    <span class="text-[10px] text-slate-400 text-center">交�?互�?</span>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/howard-kuo/" target="_blank" class="group flex flex-col items-center justify-center gap-4 p-6 bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-700 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-700/20 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-linkedin-in text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-bold text-slate-900 text-center">LinkedIn</span>
+                    <span class="text-[10px] text-slate-400 text-center">?�業???</span>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/howardkuo" target="_blank" class="group flex flex-col items-center justify-center gap-4 p-6 bg-white/60 backdrop-blur-md rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-slate-800 to-slate-900 flex items-center justify-center text-white shadow-lg shadow-slate-900/20 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fab fa-github text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-bold text-slate-900 text-center">GitHub</span>
+                    <span class="text-[10px] text-slate-400 text-center">?�術實�?/span>
+                </a>
+            </div>
+
+            <!-- Contact Form Section -->
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-gradient-to-br from-brand-blue/5 to-brand-purple/5 backdrop-blur-md rounded-3xl border border-brand-blue/20 p-12 shadow-sm hover:shadow-lg transition-all duration-300">
+                    <div class="flex flex-col items-center text-center gap-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-blue to-brand-purple flex items-center justify-center text-white shadow-lg shadow-brand-blue/20">
+                            <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2">
+                                填寫?�求表??                            </h3>
+                            <p class="text-slate-600 text-base leading-relaxed max-w-lg">
+                                ?��??�是?��?�?AI 行銷?��??��?求數位�??�諮詢�??�是希�?深入討�??�育科�?�?��?��?，�??��?請您填寫表單，�??�們�?起�??��?越�??��??��???                            </p>
+                        </div>
+                        <a href="https://forms.gle/bMsZtfPPWYzec9ok7" target="_blank" class="group relative px-10 py-4 rounded-full bg-gradient-to-r from-brand-blue to-brand-purple text-white font-extrabold text-sm shadow-xl shadow-brand-blue/20 hover:shadow-brand-blue/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2.5">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>馬�??��?填寫</span>
+                            <div class="absolute inset-0 bg-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                        <p class="text-xs text-slate-400 flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-brand-green"></i> ?��??��??�常不�???48 小�?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Consulting Section (?��?諮詢?��?- Stripe Style) -->
+        <section id="contact" class="py-24 md:py-32 px-6 lg:px-12 max-w-7xl mx-auto relative overflow-hidden">
+            <div class="relative bg-slate-900 text-white rounded-[40px] px-8 md:px-16 py-16 md:py-24 overflow-hidden shadow-2xl border border-white/5">
+                <!-- Background decoration glowing flow meshes -->
+                <div class="absolute inset-0 z-0 opacity-40">
+                    <div class="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-brand-blue filter blur-[120px] mix-blend-screen animate-pulse"></div>
+                    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-brand-purple filter blur-[100px] mix-blend-screen"></div>
+                </div>
+
+                <div class="relative z-10 max-w-3xl mx-auto flex flex-col items-center text-center">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 w-fit mb-6">
+                        <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                        <span class="text-xs font-bold text-white uppercase tracking-widest">CONNECT & TRANSFORM</span>
+                    </div>
+
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-6">
+                        ?�刻?��?高端顧�?諮詢�?br>?�您?��?業注??AI 行銷?��??��??��?                    </h2>
+                    
+                    <p class="text-slate-300 text-base md:text-lg font-light leading-relaxed mb-10 max-w-xl">
+                        ?��??��??�空談�??�是一次深?�您?��?業�??��??�基?��??��??��?學�? 25 年數位架構�??��?身�??��??�價?��?塑」�?議�?                    </p>
+
+                    <!-- CTA Buttons inside section -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+                        <a href="https://calendar.app.google/oLFytTd5b1tiMGSz6" target="_blank" class="group relative px-10 py-5 rounded-full bg-white text-slate-900 font-extrabold text-sm shadow-xl shadow-white/5 hover:shadow-brand-green/20 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 flex items-center justify-center gap-2.5 w-full sm:w-auto">
+                            <i data-lucide="calendar-check" class="w-4.5 h-4.5 text-brand-blue"></i>
+                            <span class="group-hover:hidden">立即?��?諮詢?�議</span>
+                            <span class="hidden group-hover:inline-flex items-center gap-1.5 text-brand-green font-bold animate-pulse">
+                                Status: Ready to Connect
+                            </span>
+                        </a>
+                        <a href="mailto:howardkuo@example.com" class="px-8 py-5 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white font-bold text-sm transition-all duration-300 w-full sm:w-auto flex items-center justify-center gap-2">
+                            <i data-lucide="mail" class="w-4.5 h-4.5"></i> ?�接來信?�繫
+                        </a>
+                    </div>
+
+                    <!-- Trust Signals in CTA section -->
+                    <div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-3 text-xs font-medium text-slate-400">
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-brand-green"></i> ?�費首次診斷
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-brand-green"></i> 100% 機�??�業?��?
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <i data-lucide="clock" class="w-4 h-4 text-brand-green"></i> 48 小�??�速�?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="bg-white border-t border-slate-100 py-16 px-6 lg:px-12 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex flex-col items-center md:items-start text-center md:text-left">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="w-6 h-6 rounded-md bg-gradient-to-tr from-brand-blue to-brand-purple flex items-center justify-center text-white text-[10px] font-extrabold">H</div>
+                    <span class="text-slate-900 font-extrabold tracking-tight text-sm">HOWARD KUO</span>
+                </div>
+                <p class="text-xs text-slate-400">AI ? ?��?轉�? ? 網�?策略 ? ?�育科�?顧�?</p>
+            </div>
+
+            <!-- Footer Motto -->
+            <p class="text-slate-400 text-xs font-medium italic max-w-xs text-center md:text-right">
+                "Shaping high-value digital futures through data engineering and precise marketing architecture."
+            </p>
+
+            <div class="flex items-center gap-4 text-xs text-slate-400">
+                <span>© 2026 Howard Kuo. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom JavaScript logic & animations -->
+    <script>
+        // 1. Initial Loader Fade Out on window complete load
+        window.onload = function () {
+            const loader = document.getElementById('loader');
+            loader.classList.add('opacity-0');
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 700);
+
+            // Trigger GSAP Initializations on complete load
+            initGsapAnimations();
+        };
+
+        // 2. Mobile Menu toggle behavior
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on click any link
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 3. Navbar Sticky Effect on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.remove('bg-transparent', 'border-transparent');
+                navbar.classList.add('bg-white/70', 'backdrop-blur-xl', 'border-slate-100/80', 'shadow-sm', 'h-16');
+                navbar.querySelector('div').classList.remove('h-20');
+                navbar.querySelector('div').classList.add('h-16');
+            } else {
+                navbar.classList.remove('bg-white/70', 'backdrop-blur-xl', 'border-slate-100/80', 'shadow-sm', 'h-16');
+                navbar.classList.add('bg-transparent', 'border-transparent');
+                navbar.querySelector('div').classList.remove('h-16');
+                navbar.querySelector('div').classList.add('h-20');
+            }
+        });
+
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 4. Typewriter Effect
+        const txtElement = document.getElementById('typewriter-text');
+        const textToType = "讓�??��??��?學為?��?企業?�本增�?";
+        let isWriting = true;
+        let index = 0;
+
+        function typeWriter() {
+            if (isWriting) {
+                txtElement.textContent = textToType.substring(0, index);
+                index++;
+                if (index > textToType.length) {
+                    isWriting = false;
+                    setTimeout(typeWriter, 3500); // Hold before erasing or restarting
+                } else {
+                    setTimeout(typeWriter, 80); // Speed of typing
+                }
+            } else {
+                // Instantly reset or slowly backspace
+                index = 0;
+                isWriting = true;
+                setTimeout(typeWriter, 500);
+            }
+        }
+        // Start typewriter
+        typeWriter();
+
+        // 5. Canvas Interactive Particle Network
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor(x, y, size, color, speedX, speedY) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.color = color;
+                this.speedX = speedX;
+                this.speedY = speedY;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Wall collision bounce
+                if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+                if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+
+                // Mouse interaction repulsion
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        let forceDirectionX = dx / distance;
+                        let forceDirectionY = dy / distance;
+                        let force = (mouse.radius - distance) / mouse.radius;
+                        let directionX = forceDirectionX * force * 1.5;
+                        let directionY = forceDirectionY * force * 1.5;
+
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    }
+                }
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const density = Math.floor((canvas.width * canvas.height) / 25000); // Dynamic density based on size
+            const count = Math.min(density, 65); // Cap to prevent lag
+
+            for (let i = 0; i < count; i++) {
+                let size = Math.random() * 2 + 1;
+                let x = Math.random() * canvas.width;
+                let y = Math.random() * canvas.height;
+                let speedX = (Math.random() - 0.5) * 0.3;
+                let speedY = (Math.random() - 0.5) * 0.3;
+                let color = 'rgba(124, 58, 237, 0.15)'; // Elegant faint purple
+                if (Math.random() > 0.5) {
+                    color = 'rgba(37, 99, 235, 0.15)'; // Elegant faint blue
+                }
+                particles.push(new Particle(x, y, size, color, speedX, speedY));
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        let opacity = (1 - (distance / 120)) * 0.15;
+                        ctx.strokeStyle = `rgba(37, 99, 235, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        resizeCanvas();
+        animateParticles();
+
+        // 6. GSAP Smooth Interactive & Scroll Trigger Animations
+        function initGsapAnimations() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Scroll trigger for section fade up (Intersection Observer replacement for richer dynamics)
+            const fadeUpElements = document.querySelectorAll('.solution-card, .timeline-item, .stat-card, section');
+            
+            fadeUpElements.forEach((el) => {
+                gsap.fromTo(el, 
+                    { opacity: 0, y: 35, filter: 'blur(4px)' },
+                    { 
+                        opacity: 1, 
+                        y: 0, 
+                        filter: 'blur(0px)',
+                        duration: 1, 
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none'
+                        }
+                    }
+                );
+            });
+        }
+
+        // 7. Dynamic Hover mouse tracking glow on Solutions Cards (Stripe Feature)
+        const sCards = document.querySelectorAll('.solution-card');
+        sCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>郭怡汝 Howard｜AI × 數位轉型 × 高端網站策略顧問</title>
+  <meta
+    name="description"
+    content="AI × 數位轉型 × 網站策略 × 教育科技顧問。結合 25 年數位內容、UX、網站架構與 AI 解決方案經驗，協助企業打造高價值數位平台。"
+  />
+  <meta
+    name="keywords"
+    content="AI 顧問, 數位轉型, UX 設計, 網站策略, 教育科技, SaaS 網站, AI Marketing"
+  />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root{
+      --primary:#2563eb;
+      --secondary:#7c3aed;
+      --mint:#10b981;
+      --bg:#ffffff;
+      --soft:#f8fafc;
+      --text:#1e293b;
+      --muted:#64748b;
+      --border:rgba(255,255,255,.4);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,58,237,.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(37,99,235,.10), transparent 30%),
+        linear-gradient(to bottom,#ffffff,#f8fbff);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar{
+      width:10px;
+    }
+
+    ::-webkit-scrollbar-track{
+      background:#f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb{
+      background:linear-gradient(var(--primary),var(--secondary));
+      border-radius:20px;
+    }
+
+    /* Background Grid */
+    .grid-bg{
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(15,23,42,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,.03) 1px, transparent 1px);
+      background-size:40px 40px;
+      z-index:-5;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.9), transparent);
+    }
+
+    /* Floating Blur */
+    .blur-ball{
+      position:absolute;
+      border-radius:999px;
+      filter:blur(80px);
+      opacity:.18;
+      z-index:-1;
+      animation:float 10s ease-in-out infinite;
+    }
+
+    .blur-1{
+      width:320px;
+      height:320px;
+      background:#2563eb;
+      top:10%;
+      left:-5%;
+    }
+
+    .blur-2{
+      width:300px;
+      height:300px;
+      background:#7c3aed;
+      top:40%;
+      right:-5%;
+      animation-delay:3s;
+    }
+
+    .blur-3{
+      width:240px;
+      height:240px;
+      background:#10b981;
+      bottom:10%;
+      left:30%;
+      animation-delay:5s;
+    }
+
+    @keyframes float{
+      0%,100%{transform:translateY(0px)}
+      50%{transform:translateY(-20px)}
+    }
+
+    /* Glassmorphism */
+    .glass{
+      background:rgba(255,255,255,.55);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,.4);
+      box-shadow:
+        0 10px 40px rgba(15,23,42,.06),
+        inset 0 1px 1px rgba(255,255,255,.6);
+    }
+
+    /* Navbar */
+    .navbar-scrolled{
+      background:rgba(255,255,255,.65);
+      backdrop-filter:blur(18px);
+      box-shadow:0 10px 30px rgba(0,0,0,.04);
+    }
+
+    /* Link Hover */
+    .nav-link{
+      position:relative;
+    }
+
+    .nav-link::after{
+      content:'';
+      position:absolute;
+      width:0%;
+      left:0;
+      bottom:-5px;
+      height:2px;
+      background:linear-gradient(to right,var(--primary),var(--secondary));
+      transition:.35s ease;
+      border-radius:999px;
+    }
+
+    .nav-link:hover::after{
+      width:100%;
+    }
+
+    /* Hero Title */
+    .gradient-text{
+      background:linear-gradient(135deg,#0f172a,#2563eb,#7c3aed);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    /* Buttons */
+    .premium-btn{
+      position:relative;
+      overflow:hidden;
+      transition:.4s ease;
+    }
+
+    .premium-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:
+        0 0 25px rgba(16,185,129,.35),
+        0 10px 40px rgba(37,99,235,.15);
+    }
+
+    .premium-btn::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg,
+      rgba(255,255,255,.5),
+      rgba(255,255,255,.05));
+      opacity:0;
+      transition:.4s;
+    }
+
+    .premium-btn:hover::before{
+      opacity:1;
+    }
+
+    /* Cards */
+    .premium-card{
+      transition:.45s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .premium-card:hover{
+      transform:translateY(-10px);
+      border-color:rgba(37,99,235,.3);
+      box-shadow:
+        0 20px 50px rgba(37,99,235,.12),
+        0 10px 20px rgba(124,58,237,.08);
+    }
+
+    .premium-card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+      135deg,
+      rgba(37,99,235,.06),
+      rgba(124,58,237,.03),
+      transparent
+      );
+      opacity:0;
+      transition:.4s;
+    }
+
+    .premium-card:hover::before{
+      opacity:1;
+    }
+
+    /* Fade Animation */
+    .fade-up{
+      opacity:0;
+      transform:translateY(40px);
+      transition:all .9s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .fade-up.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* Particle Canvas */
+    #particleCanvas{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:-2;
+      opacity:.6;
+    }
+
+    /* Loading */
+    #loader{
+      position:fixed;
+      inset:0;
+      background:#ffffff;
+      z-index:9999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .loader-ring{
+      width:70px;
+      height:70px;
+      border-radius:999px;
+      border:3px solid rgba(37,99,235,.1);
+      border-top-color:#2563eb;
+      animation:spin 1s linear infinite;
+    }
+
+    @keyframes spin{
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+    /* Floating Dots */
+    .dot{
+      position:absolute;
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:rgba(37,99,235,.2);
+      animation:floatingDots 7s infinite ease-in-out;
+    }
+
+    @keyframes floatingDots{
+      0%,100%{
+        transform:translateY(0);
+      }
+      50%{
+        transform:translateY(-20px);
+      }
+    }
+
+    /* Timeline */
+    .timeline-line{
+      background:linear-gradient(to bottom,
+      rgba(37,99,235,.4),
+      rgba(124,58,237,.4));
+    }
+
+    /* Hero Dashboard */
+    .dashboard-card{
+      animation:floatCard 6s ease-in-out infinite;
+    }
+
+    .dashboard-card:nth-child(2){
+      animation-delay:1.5s;
+    }
+
+    .dashboard-card:nth-child(3){
+      animation-delay:3s;
+    }
+
+    @keyframes floatCard{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-12px);
+      }
+    }
+
+    /* Case Hover */
+    .case-overlay{
+      opacity:0;
+      transition:.4s ease;
+    }
+
+    .case-card:hover .case-overlay{
+      opacity:1;
+    }
+
+    .case-card img{
+      transition:transform .6s ease;
+    }
+
+    .case-card:hover img{
+      transform:scale(1.08);
+    }
+
+    /* Responsive */
+    @media(max-width:768px){
+      .hero-title{
+        font-size:3rem !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Loading -->
+  <div id="loader">
+    <div class="loader-ring"></div>
+    <p class="text-slate-500 tracking-[.2em] uppercase text-sm">
+      Initializing AI Experience
+    </p>
+  </div>
+
+  <!-- Background -->
+  <div class="grid-bg"></div>
+
+  <div class="blur-ball blur-1"></div>
+  <div class="blur-ball blur-2"></div>
+  <div class="blur-ball blur-3"></div>
+
+  <!-- Navbar -->
+  <header
+    id="navbar"
+    class="fixed top-0 left-0 w-full z-50 transition-all duration-500"
+  >
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between h-20">
+
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center text-white font-bold shadow-lg">
+            H
+          </div>
+
+          <div>
+            <h1 class="font-bold text-slate-800">
+              Howard
+            </h1>
+            <p class="text-xs text-slate-500">
+              AI Digital Consultant
+            </p>
+          </div>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-10 text-sm font-medium text-slate-700">
+          <a href="#home" class="nav-link">首頁</a>
+          <a href="#about" class="nav-link">關於郭怡汝</a>
+          <a href="#solutions" class="nav-link">AI 解決方案</a>
+          <a href="#cases" class="nav-link">實戰案例</a>
+          <a href="#contact" class="nav-link">預約諮詢</a>
+        </nav>
+
+        <a
+          href="https://calendar.app.google/oLFytTd5b1tiMGSz6"
+          target="_blank"
+          class="hidden md:flex items-center gap-2 px-5 py-3 rounded-full glass premium-btn text-sm font-semibold text-blue-700"
+        >
+          Book Consultation
+        </a>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section
+    id="home"
+    class="relative min-h-screen flex items-center overflow-hidden pt-24"
+  >
+
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-20">
+
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+        <!-- LEFT -->
+        <div class="relative z-10">
+
+          <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm text-slate-600 mb-8">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            AI × Digital Transformation Consultant
+          </div>
+
+          <h1 class="hero-title text-5xl lg:text-7xl font-black leading-tight tracking-tight mb-8">
+            <span id="typewriter" class="gradient-text"></span>
+          </h1>
+
+          <p class="text-xl leading-relaxed text-slate-600 max-w-xl mb-10">
+            Howard helps businesses transform knowledge,
+            workflows, and customer experience through
+            practical AI Marketing solutions.
+          </p>
+
+          <div class="flex flex-wrap gap-5">
+
+            <a
+              href="https://calendar.app.google/oLFytTd5b1tiMGSz6"
+              target="_blank"
+              class="premium-btn glass px-8 py-5 rounded-2xl font-semibold text-blue-700 relative"
+            >
+              <div class="relative z-10">
+                立即預約 AI 諮詢
+              </div>
+
+              <div class="text-xs text-emerald-600 mt-1 relative z-10">
+                Status: Ready to Connect
+              </div>
+            </a>
+
+            <button
+              class="px-8 py-5 rounded-2xl border border-slate-200 bg-white/60 hover:bg-white transition text-slate-700 font-semibold"
+            >
+              Explore Solutions
+            </button>
+
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6 mt-16">
+
+            <div class="glass rounded-3xl p-5 text-center">
+              <h3 class="text-3xl font-black gradient-text">
+                25+
+              </h3>
+              <p class="text-sm text-slate-500 mt-2">
+                Years Experience
+              </p>
+            </div>
+
+            <div class="glass rounded-3xl p-5 text-center">
+              <h3 class="text-3xl font-black gradient-text">
+                100+
+              </h3>
+              <p class="text-sm text-slate-500 mt-2">
+                Digital Projects
+              </p>
+            </div>
+
+            <div class="glass rounded-3xl p-5 text-center">
+              <h3 class="text-3xl font-black gradient-text">
+                AI
+              </h3>
+              <p class="text-sm text-slate-500 mt-2">
+                Transformation
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="relative">
+
+          <!-- Floating Dots -->
+          <div class="dot top-10 left-10"></div>
+          <div class="dot top-32 right-20"></div>
+          <div class="dot bottom-20 left-20"></div>
+
+          <div class="relative">
+
+            <!-- Main Dashboard -->
+            <div class="glass rounded-[40px] p-8 shadow-2xl dashboard-card">
+
+              <div class="flex items-center justify-between mb-8">
+                <div>
+                  <h3 class="font-bold text-slate-800 text-xl">
+                    AI Marketing Intelligence
+                  </h3>
+                  <p class="text-slate-500 text-sm mt-1">
+                    Enterprise Optimization Dashboard
+                  </p>
+                </div>
+
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-violet-600"></div>
+              </div>
+
+              <!-- Chart -->
+              <div class="space-y-5">
+
+                <div class="glass rounded-2xl p-5">
+                  <div class="flex justify-between mb-3">
+                    <span class="text-slate-600 text-sm">AI Workflow Efficiency</span>
+                    <span class="text-emerald-600 text-sm">+82%</span>
+                  </div>
+
+                  <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full bg-gradient-to-r from-blue-600 to-violet-600 w-[82%]"></div>
+                  </div>
+                </div>
+
+                <div class="glass rounded-2xl p-5">
+                  <div class="flex justify-between mb-3">
+                    <span class="text-slate-600 text-sm">Digital Experience Score</span>
+                    <span class="text-emerald-600 text-sm">+91%</span>
+                  </div>
+
+                  <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full bg-gradient-to-r from-violet-600 to-blue-500 w-[91%]"></div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Floating Small Cards -->
+              <div class="grid grid-cols-2 gap-5 mt-6">
+
+                <div class="glass rounded-2xl p-5">
+                  <div class="text-sm text-slate-500">
+                    Data Flow
+                  </div>
+                  <div class="text-2xl font-bold mt-2 gradient-text">
+                    Real-Time
+                  </div>
+                </div>
+
+                <div class="glass rounded-2xl p-5">
+                  <div class="text-sm text-slate-500">
+                    AI Systems
+                  </div>
+                  <div class="text-2xl font-bold mt-2 gradient-text">
+                    Smart UX
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Floating Cards -->
+            <div class="dashboard-card absolute -top-10 -right-10 glass rounded-3xl p-5 w-52 shadow-xl">
+              <div class="text-sm text-slate-500">
+                Conversion Growth
+              </div>
+
+              <div class="text-4xl font-black mt-3 gradient-text">
+                +240%
+              </div>
+
+              <div class="mt-3 text-xs text-emerald-600">
+                AI-driven optimization
+              </div>
+            </div>
+
+            <div class="dashboard-card absolute -bottom-10 -left-10 glass rounded-3xl p-5 w-56 shadow-xl">
+              <div class="text-sm text-slate-500">
+                Customer Experience
+              </div>
+
+              <div class="mt-4 flex gap-2">
+                <div class="h-2 w-16 rounded-full bg-blue-600"></div>
+                <div class="h-2 w-10 rounded-full bg-violet-500"></div>
+                <div class="h-2 w-6 rounded-full bg-emerald-500"></div>
+              </div>
+
+              <div class="mt-4 text-sm text-slate-700">
+                Human-centered AI strategy
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-32 relative">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+      <div class="text-center mb-24 fade-up">
+        <p class="text-blue-600 font-semibold tracking-[.25em] uppercase text-sm mb-5">
+          About Howard
+        </p>
+
+        <h2 class="text-5xl lg:text-6xl font-black tracking-tight">
+          郭怡汝｜高端 AI 數位策略顧問
+        </h2>
+
+        <p class="max-w-3xl mx-auto mt-8 text-xl text-slate-600 leading-relaxed">
+          專注於教育科技、數位平台、AI 流程優化與網站體驗策略，
+          透過商業思維與使用者體驗設計，
+          協助企業建立真正具有品牌價值的數位系統。
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-16 items-start">
+
+        <!-- LEFT -->
+        <div class="fade-up">
+
+          <div class="glass rounded-[36px] p-10 premium-card">
+
+            <div class="flex items-center gap-5 mb-8">
+              <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-blue-600 to-violet-600"></div>
+
+              <div>
+                <h3 class="text-2xl font-bold">
+                  Howard Kuo
+                </h3>
+
+                <p class="text-slate-500">
+                  康軒文教事業｜數位事業處 專案組
+                </p>
+              </div>
+            </div>
+
+            <p class="text-slate-600 leading-relaxed text-lg">
+              擁有超過 25 年數位內容與網站規劃經驗，
+              長期投入教育科技、UX 架構設計、
+              數位轉型與大型平台專案整合。
+              擅長將品牌價值、使用者體驗與 AI 技術整合，
+              打造兼具商業成效與高端品牌感的數位平台。
+            </p>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-3 mt-10">
+
+              <span class="glass px-4 py-2 rounded-full text-sm">
+                AI Transformation
+              </span>
+
+              <span class="glass px-4 py-2 rounded-full text-sm">
+                UX Architecture
+              </span>
+
+              <span class="glass px-4 py-2 rounded-full text-sm">
+                SaaS Strategy
+              </span>
+
+              <span class="glass px-4 py-2 rounded-full text-sm">
+                Digital Content
+              </span>
+
+              <span class="glass px-4 py-2 rounded-full text-sm">
+                Product Thinking
+              </span>
+
+              <span class="glass px-4 py-2 rounded-full text-sm">
+                Project Leadership
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="space-y-8 fade-up">
+
+          <!-- Timeline -->
+          <div class="glass rounded-[36px] p-10 premium-card">
+
+            <h3 class="text-2xl font-bold mb-10">
+              Experience Timeline
+            </h3>
+
+            <div class="relative pl-10">
+
+              <div class="absolute left-3 top-0 bottom-0 w-[2px] timeline-line"></div>
+
+              <div class="relative mb-10">
+                <div class="absolute -left-[34px] top-1 w-4 h-4 rounded-full bg-blue-600"></div>
+
+                <h4 class="font-bold text-lg">
+                  Digital Transformation
+                </h4>
+
+                <p class="text-slate-500 mt-2">
+                  教育科技與企業數位轉型整合規劃
+                </p>
+              </div>
+
+              <div class="relative mb-10">
+                <div class="absolute -left-[34px] top-1 w-4 h-4 rounded-full bg-violet-600"></div>
+
+                <h4 class="font-bold text-lg">
+                  UX & Platform Architecture
+                </h4>
+
+                <p class="text-slate-500 mt-2">
+                  使用者體驗與大型網站平台架構設計
+                </p>
+              </div>
+
+              <div class="relative">
+                <div class="absolute -left-[34px] top-1 w-4 h-4 rounded-full bg-emerald-500"></div>
+
+                <h4 class="font-bold text-lg">
+                  AI Workflow Integration
+                </h4>
+
+                <p class="text-slate-500 mt-2">
+                  AI 流程優化與智慧內容應用
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-2 gap-6">
+
+            <div class="glass rounded-3xl p-8 premium-card">
+              <h3 class="text-4xl font-black gradient-text">
+                25+
+              </h3>
+
+              <p class="mt-3 text-slate-600">
+                Years in Digital Strategy
+              </p>
+            </div>
+
+            <div class="glass rounded-3xl p-8 premium-card">
+              <h3 class="text-4xl font-black gradient-text">
+                UX
+              </h3>
+
+              <p class="mt-3 text-slate-600">
+                Human-Centered Design
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SOLUTIONS -->
+  <section id="solutions" class="py-32 relative">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+      <div class="text-center mb-24 fade-up">
+        <p class="text-blue-600 font-semibold tracking-[.25em] uppercase text-sm mb-5">
+          AI Solutions
+        </p>
+
+        <h2 class="text-5xl lg:text-6xl font-black tracking-tight">
+          高端 AI 數位解決方案
+        </h2>
+
+        <p class="max-w-3xl mx-auto mt-8 text-xl text-slate-600 leading-relaxed">
+          從網站策略、AI 流程到品牌平台整合，
+          建立真正具備競爭力的數位體驗。
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+
+        <!-- Card -->
+        <div class="glass premium-card rounded-[36px] p-8 fade-up">
+          <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center text-white text-2xl mb-8">
+            ✦
+          </div>
+
+          <h3 class="text-2xl font-bold mb-5">
+            網站策略規劃
+          </h3>
+
+          <p class="text-slate-600 leading-relaxed">
+            建立兼具品牌價值、商業轉換與使用者體驗的高端數位平台。
+          </p>
+        </div>
+
+        <div class="glass premium-card rounded-[36px] p-8 fade-up">
+          <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-violet-600 to-blue-500 flex items-center justify-center text-white text-2xl mb-8">
+            AI
+          </div>
+
+          <h3 class="text-2xl font-bold mb-5">
+            AI 數位轉型
+          </h3>
+
+          <p class="text-slate-600 leading-relaxed">
+            導入 AI 工作流程、自動化與知識系統，提升企業營運效率。
+          </p>
+        </div>
+
+        <div class="glass premium-card rounded-[36px] p-8 fade-up">
+          <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center text-white text-2xl mb-8">
+            UX
+          </div>
+
+          <h3 class="text-2xl font-bold mb-5">
+            UX 使用者體驗設計
+          </h3>
+
+          <p class="text-slate-600 leading-relaxed">
+            透過高端互動設計與資訊架構，打造卓越產品體驗。
+          </p>
+        </div>
+
+        <div class="glass premium-card rounded-[36px] p-8 fade-up">
+          <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-blue-600 to-emerald-500 flex items-center justify-center text-white text-2xl mb-8">
+            ◎
+          </div>
+
+          <h3 class="text-2xl font-bold mb-5">
+            數位內容整合
+          </h3>
+
+          <p class="text-slate-600 leading-relaxed">
+            整合內容策略、教育科技與數位媒體平台，提升品牌影響力。
+          </p>
+        </div>
+
+        <div class="glass premium-card rounded-[36px] p-8 fade-up">
+          <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-violet-500 to-emerald-500 flex items-center justify-center text-white text-2xl mb-8">
+            ⇄
+          </div>
+
+          <h3 class="text-2xl font-bold mb-5">
+            專案管理與流程優化
+          </h3>
+
+          <p class="text-slate-600 leading-relaxed">
+            建立高效率跨部門協作與數位專案管理機制。
+          </p>
+        </div>
+
+        <div class="glass premium-card rounded-[36px] p-8 fade-up">
+          <div class="w-16 h-16 rounded-3xl bg-gradient-to-br from-blue-600 to-violet-600 flex items-center justify-center text-white text-2xl mb-8">
+            ⌘
+          </div>
+
+          <h3 class="text-2xl font-bold mb-5">
+            品牌數位平台建置
+          </h3>
+
+          <p class="text-slate-600 leading-relaxed">
+            打造國際 SaaS 等級視覺與品牌數位平台體驗。
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section id="cases" class="py-32 relative">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+      <div class="text-center mb-24 fade-up">
+
+        <p class="text-blue-600 font-semibold tracking-[.25em] uppercase text-sm mb-5">
+          Selected Cases
+        </p>
+
+        <h2 class="text-5xl lg:text-6xl font-black tracking-tight">
+          AI × 數位轉型實戰案例
+        </h2>
+
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+
+        <!-- Case -->
+        <div class="case-card glass rounded-[36px] overflow-hidden premium-card fade-up relative">
+
+          <div class="relative overflow-hidden h-72">
+            <img
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1400&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+            />
+
+            <div class="case-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent flex items-end p-8">
+              <button class="bg-white/90 text-slate-800 px-5 py-3 rounded-full font-semibold">
+                View Case
+              </button>
+            </div>
+          </div>
+
+          <div class="p-8">
+            <div class="text-sm text-blue-600 font-semibold mb-4">
+              Education Technology
+            </div>
+
+            <h3 class="text-2xl font-bold mb-4">
+              AI Learning Platform
+            </h3>
+
+            <p class="text-slate-600 leading-relaxed">
+              導入 AI 教學內容與智慧學習流程，
+              提升數位平台互動效率與使用者體驗。
+            </p>
+
+            <div class="mt-6 text-sm text-slate-500">
+              UX / AI / SaaS / CMS
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Case -->
+        <div class="case-card glass rounded-[36px] overflow-hidden premium-card fade-up relative">
+
+          <div class="relative overflow-hidden h-72">
+            <img
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+            />
+
+            <div class="case-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent flex items-end p-8">
+              <button class="bg-white/90 text-slate-800 px-5 py-3 rounded-full font-semibold">
+                View Case
+              </button>
+            </div>
+          </div>
+
+          <div class="p-8">
+            <div class="text-sm text-violet-600 font-semibold mb-4">
+              Digital Transformation
+            </div>
+
+            <h3 class="text-2xl font-bold mb-4">
+              Enterprise AI Workflow
+            </h3>
+
+            <p class="text-slate-600 leading-relaxed">
+              建立企業 AI 自動化工作流程，
+              大幅降低營運成本並提升決策效率。
+            </p>
+
+            <div class="mt-6 text-sm text-slate-500">
+              Automation / AI / UX
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Case -->
+        <div class="case-card glass rounded-[36px] overflow-hidden premium-card fade-up relative">
+
+          <div class="relative overflow-hidden h-72">
+            <img
+              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop"
+              class="w-full h-full object-cover"
+            />
+
+            <div class="case-overlay absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent flex items-end p-8">
+              <button class="bg-white/90 text-slate-800 px-5 py-3 rounded-full font-semibold">
+                View Case
+              </button>
+            </div>
+          </div>
+
+          <div class="p-8">
+            <div class="text-sm text-emerald-600 font-semibold mb-4">
+              Premium Brand Platform
+            </div>
+
+            <h3 class="text-2xl font-bold mb-4">
+              High-End SaaS Experience
+            </h3>
+
+            <p class="text-slate-600 leading-relaxed">
+              打造高級感品牌網站與數位平台，
+              強化企業國際形象與品牌價值。
+            </p>
+
+            <div class="mt-6 text-sm text-slate-500">
+              Branding / UIUX / SaaS
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="py-32 relative overflow-hidden">
+
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-100/40 via-violet-100/40 to-emerald-100/30"></div>
+
+    <div class="max-w-6xl mx-auto px-6 lg:px-10 relative z-10">
+
+      <div class="glass rounded-[48px] p-12 lg:p-20 text-center fade-up">
+
+        <div class="inline-flex items-center gap-2 glass px-4 py-2 rounded-full text-sm text-slate-600 mb-8">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Strategic AI Consulting
+        </div>
+
+        <h2 class="text-5xl lg:text-7xl font-black tracking-tight leading-tight max-w-4xl mx-auto">
+          讓 AI 與數位策略，
+          成為企業成長的新引擎
+        </h2>
+
+        <p class="max-w-3xl mx-auto mt-8 text-xl text-slate-600 leading-relaxed">
+          從品牌平台、UX 架構到 AI 工作流程，
+          建立真正具有競爭力的數位體驗與商業價值。
+        </p>
+
+        <a
+          href="https://calendar.app.google/oLFytTd5b1tiMGSz6"
+          target="_blank"
+          class="inline-flex mt-12 premium-btn glass px-10 py-6 rounded-2xl text-lg font-semibold text-blue-700"
+        >
+          立即預約 AI 顧問諮詢
+        </a>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 text-center text-slate-500 text-sm">
+    © 2026 Howard Digital Strategy & AI Consulting
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+
+    // Loading
+    window.addEventListener('load', () => {
+      gsap.to("#loader", {
+        opacity:0,
+        duration:1,
+        delay:.5,
+        onComplete:()=>{
+          document.getElementById('loader').style.display='none';
+        }
+      });
+    });
+
+    // Navbar Scroll
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 50){
+        navbar.classList.add('navbar-scrolled');
+      }else{
+        navbar.classList.remove('navbar-scrolled');
+      }
+    });
+
+    // Typewriter
+    const text = "讓行銷資料科學為您的企業降本增效";
+    const typewriter = document.getElementById('typewriter');
+
+    let i = 0;
+
+    function typing(){
+      if(i < text.length){
+        typewriter.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing, 120);
+      }
+    }
+
+    typing();
+
+    // Fade Up Observer
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold:0.15
+    });
+
+    document.querySelectorAll('.fade-up').forEach(el=>{
+      observer.observe(el);
+    });
+
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from(".hero-title", {
+      opacity:0,
+      y:40,
+      duration:1.2,
+      ease:"power3.out"
+    });
+
+    gsap.from(".dashboard-card", {
+      opacity:0,
+      y:50,
+      duration:1,
+      stagger:.2,
+      ease:"power3.out"
+    });
+
+    // Particle Canvas
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+
+    function resizeCanvas(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle{
+      constructor(){
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 2 + 1;
+        this.dx = (Math.random() - .5) * .4;
+        this.dy = (Math.random() - .5) * .4;
+      }
+
+      draw(){
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(37,99,235,.18)';
+        ctx.fill();
+      }
+
+      update(){
+        this.x += this.dx;
+        this.y += this.dy;
+
+        if(this.x < 0 || this.x > canvas.width) this.dx *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.dy *= -1;
+
+        this.draw();
+      }
+    }
+
+    function initParticles(){
+      particles = [];
+      for(let i=0;i<70;i++){
+        particles.push(new Particle());
+      }
+    }
+
+    function connectParticles(){
+      for(let a=0;a<particles.length;a++){
+        for(let b=a;b<particles.length;b++){
+
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+
+          const distance = dx * dx + dy * dy;
+
+          if(distance < 14000){
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(124,58,237,.05)';
+            ctx.lineWidth = 1;
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      particles.forEach(p=>{
+        p.update();
+      });
+
+      connectParticles();
+
+      requestAnimationFrame(animateParticles);
+    }
+
+    initParticles();
+    animateParticles();
+
+  </script>
+
+</body>
+</html>
